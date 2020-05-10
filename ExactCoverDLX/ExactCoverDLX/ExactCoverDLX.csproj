@@ -30,6 +30,9 @@
     <None Update="sudoku_grids\sudoku_9x9_1.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="sudoku_grids\sudoku_9x9_2.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

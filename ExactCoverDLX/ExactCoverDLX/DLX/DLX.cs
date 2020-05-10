@@ -22,6 +22,26 @@ namespace ExactCoverDLX.DLX
         #region DLX functions
         private ColumnNode CreateDLXList(int[,] grid)
         {
+            /*
+            int nbOnes = 0,count, nbZeros = 0;
+            for(int i = 0; i < grid.GetLength(1); i++)
+            {
+                count = 0;
+                for(int j = 0; j < grid.GetLength(0); j++)
+                {
+                    if (grid[j, i] == 1) count++;
+                }
+                if (count == 1) nbOnes++;
+                if(count==0) nbZeros++;
+            }
+            */
+
+            Console.WriteLine("cover matrix size: {0} x {1}", grid.GetLength(0), grid.GetLength(1));
+            //Console.WriteLine("(start)number of columns with zeros: {0}",nbZeros);
+            //Console.WriteLine("(start)number of columns with ones: {0}",nbOnes);
+
+
+
             int nbColumns = grid.GetLength(1);
             ColumnNode headerNode = new ColumnNode("header");
             List<ColumnNode> columnNodes = new List<ColumnNode>();
@@ -61,8 +81,27 @@ namespace ExactCoverDLX.DLX
             return headerNode;
         }
 
+        //private int minCount = int.MaxValue;
+        //private System.Diagnostics.Stopwatch stopwatch;
+
         private void Process(int k)
         {
+            /*
+            if(k==0) stopwatch = System.Diagnostics.Stopwatch.StartNew();
+
+            int count = 0;
+            for (ColumnNode column = (ColumnNode)_header.Right; column != _header; column = (ColumnNode)column.Right)
+            {
+                count++;
+            }
+            if(count < minCount)
+            {
+                minCount = count;
+                Console.WriteLine("[{0}]header mninimum count: " + minCount, stopwatch.Elapsed);
+            }
+            */
+            
+
             if (_header.Right == _header)
             {
                 // End of Algorithm X

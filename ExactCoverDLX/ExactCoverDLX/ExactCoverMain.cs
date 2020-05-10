@@ -8,11 +8,10 @@ namespace ExactCoverDLX
     {
         public static void Main(string[] args)
         {
-            SudokuInput sudokuInput = SudokuInput.GetSudokuFromFile(9, 3, @"./sudoku_grids/sudoku_9x9_1.txt");
+            SudokuInput sudokuInput = SudokuInput.GetSudokuFromFile(25, 5, @"./sudoku_grids/sudoku_25x25_3.txt");
 
             Sudoku sudoku = new Sudoku(sudokuInput.Size, sudokuInput.BoxSize, sudokuInput.Grid);
             sudoku.DisplayGrid();
-            Console.WriteLine("\nSolving...\n");
             sudoku.Solve();
         }
 

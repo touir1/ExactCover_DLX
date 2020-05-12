@@ -1,4 +1,5 @@
 ﻿using ExactCoverDLX.DLX;
+using ExactCoverDLX.Utils;
 using System;
 using System.IO;
 
@@ -8,11 +9,16 @@ namespace ExactCoverDLX
     {
         public static void Main(string[] args)
         {
-            SudokuInput sudokuInput = SudokuInput.GetSudokuFromFile(9, 3, @"./sudoku_grids/sudoku_9x9_2.txt");
+            Logger.DoLog = true;
+            Logger.DoAppend = false;
+
+            SudokuInput sudokuInput = SudokuInput.GetSudokuFromFile(16, 4, @"./sudoku_grids/sudoku_16x16_1.txt");
 
             Sudoku sudoku = new Sudoku(sudokuInput.Size, sudokuInput.BoxSize, sudokuInput.Grid);
             sudoku.DisplayGrid();
             sudoku.Solve();
+
+            Logger.Destroy();
         }
 
         public class SudokuInput

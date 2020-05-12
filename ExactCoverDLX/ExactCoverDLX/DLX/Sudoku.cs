@@ -207,7 +207,7 @@ namespace ExactCoverDLX.DLX
             watch.Stop();
             TimeSpan elapsed = watch.Elapsed;
 
-            Console.WriteLine("Grid solved with dancing links in {0}", elapsed);
+            Console.WriteLine("Grid solved with Algorithm X (dancing links) in {0}", elapsed);
             DisplaySolution();
         }
 

@@ -12,9 +12,14 @@ namespace ExactCoverDLX
             Logger.DoLog = true;
             Logger.DoAppend = false;
 
-            SudokuInput sudokuInput = SudokuInput.GetSudokuFromFile(16, 4, @"./sudoku_grids/sudoku_16x16_1.txt");
+            string sudokuGridFile = @"./sudoku_grids/sudoku_9x9_empty.txt";
+            int size = 9;
+            int boxSize = 3;
+
+            SudokuInput sudokuInput = SudokuInput.GetSudokuFromFile(size, boxSize, sudokuGridFile);
 
             Sudoku sudoku = new Sudoku(sudokuInput.Size, sudokuInput.BoxSize, sudokuInput.Grid);
+
             sudoku.DisplayGrid();
             sudoku.Solve();
 

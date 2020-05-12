@@ -87,7 +87,7 @@ namespace ExactCoverDLX.DLX
         //private System.Diagnostics.Stopwatch stopwatch;
 
         private int idProcess = 0;
-        private void Process(int k)
+        private void Process(int k) // O(N^(N^2))
         {
             /*
             if(k==0) stopwatch = System.Diagnostics.Stopwatch.StartNew();
@@ -106,7 +106,7 @@ namespace ExactCoverDLX.DLX
             int id = ++idProcess;
             Logger.Log("Process: begin id: " + id + ", k: "+k);
 
-            if (_header.Right == _header)
+            if (_header.Right == _header) // covered all the headers (columns)
             {
                 // End of Algorithm X
                 // Result is copied in a result list
@@ -117,29 +117,29 @@ namespace ExactCoverDLX.DLX
             {
                 // we choose column c
                 Logger.Log("Process: id: " + id + ", selecting column");
-                ColumnNode c = SelectColumnNodeHeuristic();
+                ColumnNode c = SelectColumnNodeHeuristic(); // O(N^2)
                 Logger.Log("Process: id: " + id + ", selected column: " + c.Name);
 
-                c.Cover();
+                c.Cover(); // O(N)
                 Logger.Log("Process: id: " + id + ", covered column: " + c.Name);
 
                 int nodes = 0;
-                for (DancingNode r = c.Bottom; r != c; r = r.Bottom)
+                for (DancingNode r = c.Bottom; r != c; r = r.Bottom) // N iterations * (N + recurse (depth = N^2)) -> O(N^(N^2))
                 {
                     // We add r line to partial solution
                     _answer.Add(r);
                     Logger.Log("Process: id: " + id + ", choosing node (Bottom): " + ++nodes + " as partial answer");
 
                     // We cover columns
-                    for (DancingNode j = r.Right; j != r; j = j.Right)
+                    for (DancingNode j = r.Right; j != r; j = j.Right) // 4 * N -> O(N)
                     {
-                        j.Column.Cover();
+                        j.Column.Cover(); // O(N)
                         Logger.Log("Process: id: " + id + ", node: " + nodes + ", covered column (Right): " + j.Column.Name);
                     }
 
                     // recursive call to level k + 1
                     Logger.Log("Process: id: " + id + ", Recursive call of Process: " + (k+1));
-                    Process(k + 1);
+                    Process(k + 1); // Recurse -> depth ~= N^2 (number of columns to cover)
                     if (Result != null) return;
 
                     // We go back
@@ -149,14 +149,14 @@ namespace ExactCoverDLX.DLX
 
 
                     // We uncover columns
-                    for (DancingNode j = r.Left; j != r; j = j.Left)
+                    for (DancingNode j = r.Left; j != r; j = j.Left) // 4 * N -> O(N)
                     {
-                        j.Column.Uncover();
+                        j.Column.Uncover(); // O(N)
                         Logger.Log("Process: id: " + id + ", node: " + nodes + ", uncovered column (Left): " + j.Column.Name);
                     }
                 }
 
-                c.Uncover();
+                c.Uncover(); // O(N)
                 Logger.Log("Process: id: " + id + ", uncovered column: " + c.Name);
             }
             Logger.Log("Process: end id: " + id);

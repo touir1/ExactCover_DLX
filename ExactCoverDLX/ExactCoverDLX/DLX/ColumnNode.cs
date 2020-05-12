@@ -22,21 +22,21 @@ namespace ExactCoverDLX.DLX
         #endregion
 
         #region cover & uncover functions
-        public void Cover()
+        public void Cover() // O(N)
         {
             Logger.Log("Cover: covering column: " + Name);
-            RemoveLeftRight();
+            RemoveLeftRight(); // O(1)
 
             int b = 0, r = 0, rc = 0;
 
-            for (DancingNode i = this.Bottom; i != this; i = i.Bottom)
+            for (DancingNode i = this.Bottom; i != this; i = i.Bottom) // O(N)
             {
                 b++;
                 r = 0;
-                for (DancingNode j = i.Right; j != i; j = j.Right)
+                for (DancingNode j = i.Right; j != i; j = j.Right) // O(1)
                 {
                     r++;
-                    j.RemoveTopBottom();
+                    j.RemoveTopBottom(); // O(1)
                     j.Column.Size--;
                 }
                 Logger.Log("Cover: covered row : " + b + ", items in row: " + r);
@@ -45,26 +45,26 @@ namespace ExactCoverDLX.DLX
             Logger.Log("Cover: rows : " + b + ", total items in row" + rc);
         }
 
-        public void Uncover()
+        public void Uncover() // O(N)
         {
             Logger.Log("Unover: uncovering column: " + Name);
             int t = 0, l = 0, lu = 0;
 
-            for (DancingNode i = this.Top; i != this; i = i.Top)
+            for (DancingNode i = this.Top; i != this; i = i.Top) // O(N)
             {
                 t++;
                 l = 0;
-                for (DancingNode j = i.Left; j != i; j = j.Left)
+                for (DancingNode j = i.Left; j != i; j = j.Left) // O(1)
                 {
                     l++;
                     j.Column.Size++;
-                    j.ReinsertTopBottom();
+                    j.ReinsertTopBottom(); // O(1)
                 }
                 Logger.Log("Uncover: uncovered row : " + t + ", items in row: " + l);
                 lu += l;
             }
 
-            ReinsertLeftRight();
+            ReinsertLeftRight(); // O(1)
             Logger.Log("Uncover: rows : " + t + ", total items in row" + lu);
         }
         #endregion

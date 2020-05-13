@@ -89,20 +89,6 @@ namespace ExactCoverDLX.DLX
         private int idProcess = 0;
         private void Process(int k) // O(N^(N^2))
         {
-            /*
-            if(k==0) stopwatch = System.Diagnostics.Stopwatch.StartNew();
-
-            int count = 0;
-            for (ColumnNode column = (ColumnNode)_header.Right; column != _header; column = (ColumnNode)column.Right)
-            {
-                count++;
-            }
-            if(count < minCount)
-            {
-                minCount = count;
-                Console.WriteLine("[{0}]header mninimum count: " + minCount, stopwatch.Elapsed);
-            }
-            */
             int id = ++idProcess;
             Logger.Log("Process: begin id: " + id + ", k: "+k);
 
@@ -169,16 +155,16 @@ namespace ExactCoverDLX.DLX
         }
 
         private int idSelectColumnNodeHeuristic = 0;
-        private ColumnNode SelectColumnNodeHeuristic()
+        private ColumnNode SelectColumnNodeHeuristic() // O(N^2)
         {
             int id = ++idSelectColumnNodeHeuristic;
             Logger.Log("SelectColumnNodeHeuristic: begin execution id: " + id);
 
             int min = int.MaxValue;
             ColumnNode ret = null;
-            for (ColumnNode column = (ColumnNode)_header.Right; column != _header; column = (ColumnNode) column.Right)
+            for (ColumnNode column = (ColumnNode)_header.Right; column != _header; column = (ColumnNode) column.Right) // O(N^2)
             {
-                if (column.Size < min)
+                if (column.Size < min) // O(1)
                 {
                     min = column.Size;
                     ret = column;
